@@ -11,7 +11,9 @@ import {
   CheckCircle2,
   Clock,
   ArrowRight,
-  Sparkles
+  Sparkles,
+  Copy,
+  Check
 } from "lucide-react";
 
 interface WorkflowStep {
@@ -23,6 +25,15 @@ interface WorkflowStep {
 }
 
 const Dashboard = () => {
+  const [copied, setCopied] = useState(false);
+  const demoEmail = "demoemail@jupiterbrains.com";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(demoEmail);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const [workflowSteps] = useState<WorkflowStep[]>([
     {
       id: "email",
@@ -95,10 +106,26 @@ const Dashboard = () => {
               <p className="text-xs text-muted-foreground">AI Classification Demo</p>
             </div>
           </div>
-          <Button variant="outline" size="sm">
-            <Mail className="w-4 h-4" />
-            demoemail@jupiterbrains.com
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" asChild>
+              <a href={`mailto:${demoEmail}`}>
+                <Mail className="w-4 h-4" />
+                {demoEmail}
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleCopy}
+              className="h-9 w-9"
+            >
+              {copied ? (
+                <Check className="h-4 w-4 text-secondary" />
+              ) : (
+                <Copy className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
         </div>
       </header>
 
