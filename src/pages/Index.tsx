@@ -1,9 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Brain, Mail, FileText, Zap, CheckCircle, ArrowRight } from "lucide-react";
+import { Brain, Mail, FileText, Zap, CheckCircle, ArrowRight, Copy, Check } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Index = () => {
+  const [copied, setCopied] = useState(false);
+  const demoEmail = "demoemail@jupiterbrains.com";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(demoEmail);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const features = [
     {
       icon: Mail,
@@ -120,10 +130,25 @@ const Index = () => {
                 This demonstration showcases real-time email classification, document extraction, 
                 and automated response generation. Send an email to see the AI in action.
               </p>
-              <div className="pt-4">
-                <code className="px-4 py-2 rounded-lg bg-muted text-foreground font-mono text-sm">
-                  demoemail@jupiterbrains.com
-                </code>
+              <div className="pt-4 flex items-center gap-3 justify-center">
+                <a 
+                  href={`mailto:${demoEmail}`}
+                  className="px-4 py-2 rounded-lg bg-muted text-foreground font-mono text-sm hover:bg-muted/80 transition-colors"
+                >
+                  {demoEmail}
+                </a>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={handleCopy}
+                  className="h-10 w-10"
+                >
+                  {copied ? (
+                    <Check className="h-4 w-4 text-success" />
+                  ) : (
+                    <Copy className="h-4 w-4" />
+                  )}
+                </Button>
               </div>
             </div>
           </CardContent>
