@@ -65,7 +65,7 @@ const Index = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button asChild variant="hero" size="xl">
-                <Link to="/demo">
+                <Link to="/models">
                   Try Interactive Demo
                   <ArrowRight className="w-5 h-5" />
                 </Link>
